@@ -7,10 +7,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "echo '----- Checking Frontend...' && prettier --debug-check . && eslint --ext .jsx . && echo '----- Done!'",
-    "fix": "prettier --write . && eslint --fix --ext .jsx ."
+    "fix": "prettier --write . && eslint --fix --ext .jsx .",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
-    "lint-staged": "^13.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -28,13 +28,20 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.0",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.18",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.1.8",
     "vite": "^3.1.8"
   },
   "lint-staged": {
-    "*.js": "eslint --fix ",
-    "*.{js,css,md,html,json}": "prettier --cache --write"
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint -- --quiet --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
